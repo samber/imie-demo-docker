@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+
+  api:
+    image: samber/test:compose
+    build: .
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 8080:8080
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PG_HOST=postgres
+      - PG_PORT=5432
+      - PG_DB=demo
+      - PG_USER=demo
+      - PG_PASS=demo
+    restart: unless-stopped
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    restart: unless-stopped
+
+  redis:
+    image: redis:3.2
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./schema:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_DB=demo
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+    restart: unless-stopped

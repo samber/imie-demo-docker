@@ -1,0 +1,12 @@
+{
+    "name": "hello-world",
+    "version": "1.0.0",
+    "private": true,
+    "description": "CleverCloud Example",
+    "dependencies": {
+        "express": "~3.0.0"
+    },
+    "scripts": {
+        "start": "node index.js"
+    }
+}
